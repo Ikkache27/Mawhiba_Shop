@@ -1,0 +1,42 @@
+<div class="example-container">
+  <form class="example-form" #f="ngForm" (ngSubmit)="save(f.value)" [formGroup]="productFormControl">
+    <mat-form-field class="example-full-width"> 
+      <mat-label>Title</mat-label>
+      <input formControlName="title" matInput>
+      <mat-error *ngIf="productFormControl.get('title').hasError('required')">Title is <strong>required</strong></mat-error>
+    </mat-form-field>
+    <br>
+    
+    <mat-form-field class="example-full-width">
+        <mat-label>Price</mat-label>
+        <input matInput  formControlName="price" [errorStateMatcher]="matcher" class="example-right-align">
+        <span matPrefix>$&nbsp;</span>
+        
+        <mat-error *ngIf="productFormControl.get('price').hasError('digits') && !productFormControl.get('price').hasError('required')">
+            Price only digit
+          </mat-error>
+          <mat-error *ngIf="productFormControl.get('price').hasError('required')">Price is <strong>required</strong></mat-error>
+        
+    </mat-form-field >
+    
+    <br>
+    <mat-form-field class="example-full-width">
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="category">
+        <mat-option value="option"></mat-option>
+        <mat-option  *ngFor="let category of categories$ | async" [value]="category.key">{{category.value.name}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="productFormControl.get('category').hasError('required')">Category is <strong>required</strong></mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="example-full-width"> 
+      <mat-label>Image URL</mat-label>
+      <input formControlName="imageURL" matInput>
+      <mat-error *ngIf="productFormControl.get('imageURL').hasError('required')">Image URL is <strong>required</strong></mat-error>
+    </mat-form-field>
+    <br>
+    <br>
+    <button mat-raised-button color="primary">Save</button> 
+  </form>
+  </div>
+  

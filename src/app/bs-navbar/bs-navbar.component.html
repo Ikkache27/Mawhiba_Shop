@@ -1,0 +1,48 @@
+<mat-toolbar color="primary" class="mat-elevation-z8">
+  <button mat-button routerLink="/" ><mat-icon>store_mall_directory</mat-icon>Oshop</button>
+  <div class="spacer"></div>
+  <button mat-button routerLink="/shopping-cart" >Shopping Cart</button>
+  <ng-template #anonymousUser>
+    <button mat-raised-button color="accent"  routerLink="/login">Login</button>
+  </ng-template>
+  <button mat-button [matMenuTriggerFor]="menu" *ngIf="appUser; else anonymousUser">{{appUser.name}}<mat-icon >arrow_drop_down</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item  routerLink="/my/orders">My orders</button>
+    <ng-container *ngIf="appUser?.isAdmin">
+      <button mat-menu-item routerLink="/admin/orders">Manage orders</button>
+      <button mat-menu-item routerLink="/admin/products">Manage products</button>
+    </ng-container>
+    <button mat-menu-item (click)="logout()">Log Out</button>
+  </mat-menu>
+  
+</mat-toolbar>
+
+
+
+<!--
+<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+    <a class="navbar-brand" routerLink="/">O</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/shopping-cart">Shopping cart</a>
+        </li>
+        
+        <li ngbDropdown ngbclass="nav-item dropdown">
+          <a ngbDropdownToggle class="nav-link dropdown-toggle"  id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Username</a>
+          <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">
+            <a class="dropdown-item" routerLink="/my/orders">My orders</a>
+            <a class="dropdown-item" routerLink="/admin/orders">Manage orders</a>
+            <a class="dropdown-item" routerLink="/admin/products">Manage products</a>
+            <a class="dropdown-item" >Log Out</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+-->

@@ -35,7 +35,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-
+import {MatCardModule} from '@angular/material/card'; 
+import {MatGridListModule} from '@angular/material/grid-list';
+import { MatTableModule, MatTableDataSource } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -69,13 +73,14 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
       {path: 'order-success', component : OrderSuccessComponent, canActivate:[AuthGuardService]},
       {path: 'my/orders', component : MyOrdersComponent, canActivate:[AuthGuardService]},
       
+      {path: 'admin/product/new', component : ProductFormComponent, canActivate:[AuthGuardService, AdminAuthGuardService]},      
+      {path: 'admin/product/:id', component : ProductFormComponent, canActivate:[AuthGuardService, AdminAuthGuardService]},
       {path: 'admin/products', component : AdminProductsComponent, canActivate:[AuthGuardService, AdminAuthGuardService]},
-      {path: 'admin/product/new', component : ProductFormComponent, canActivate:[AuthGuardService, AdminAuthGuardService]},
       {path: 'admin/orders', component : AdminOrdersComponent, canActivate:[AuthGuardService, AdminAuthGuardService]}
     ]),
     NgbModule,
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
     MatToolbarModule,
     MatButtonModule,
     MatMenuModule,
@@ -84,6 +89,11 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
+    MatCardModule,
+    MatGridListModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
     
   ],
   providers: [ProductSeriveService, CategoryService, AuthService, AuthGuardService, UserService, AdminAuthGuardService],

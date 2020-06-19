@@ -1,9 +1,10 @@
-import { ProductSeriveService } from './../../product-serive.service';
+import { ProductSeriveService, Item } from './../../product-serive.service';
 import { CategoryService } from './../../category.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, Validators, FormGroup } from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
-import { CustomValidators } from 'ngx-custom-validators';;
+import { CustomValidators } from 'ngx-custom-validators';import { Router, ActivatedRoute } from '@angular/router';
+
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -20,27 +21,52 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class ProductFormComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
+  id;
   categories$;
-  selectedFiles;
+  categoryImageURL='';
+  product=<any>{};
   productFormControl = new FormGroup({
     'title': new FormControl('',[Validators.required]),
-    'price': new FormControl('',[Validators.required,Validators.pattern('^[0-9]*(\.[0-9]+)*$')]),
+    'price': new FormControl('',[Validators.required,Validators.pattern('[0-9]+(\.[0-9]{1,2})?'), CustomValidators.min(0)]),
     'category': new FormControl('',[Validators.required]),
-    'imageURL': new FormControl('',[Validators.required])
+    'imageURL': new FormControl('',[Validators.required, CustomValidators.url])
   });
 
-    constructor(categoryService : CategoryService, private productService : ProductSeriveService) {
+    constructor(private route : ActivatedRoute, private categoryService : CategoryService, private productService : ProductSeriveService, private router : Router) {
     this.categories$=categoryService.getCategories()
-
-   }
+    this.id = this.route.snapshot.paramMap.get('id')
+    if (this.id) this.productService.get(this.id).subscribe(p=>{this.product=p
+    })
+    
+   
+  }
 
   ngOnInit(): void {
   }
 
-  selectFile(event) {
-    this.selectedFiles = event.target.files;
-}
+
+  
 save(product){
-  this.productService.creat(product)
+  if (this.id) this.productService.update(this.id,product)
+  else this.productService.creat(product)
+  this.router.navigate(['/admin/products'])
 }
+delete(){
+  
+  if (!confirm('Are you sure you want to delete this product')) return;
+  
+  this.productService.delete(this.id)
+  this.router.navigate(['/admin/products'])
+
+
+
+}
+
+
+/**changeCategory(name){
+  this.categoryService.getImageUrlCategory(name).subscribe(c=>{this.category=c
+    this.categoryImageURL=this.category.imageURL
+    console.log(this.category)
+  })
+}**/
 }

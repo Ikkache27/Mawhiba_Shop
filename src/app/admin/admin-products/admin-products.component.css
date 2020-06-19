@@ -1,0 +1,10 @@
+table {
+    width: 60%;
+  }
+
+
+.example-button-row button {
+    display: table-cell;
+    margin-right: 8px;
+  }
+

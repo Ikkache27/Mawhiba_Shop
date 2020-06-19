@@ -1,3 +1,19 @@
 .example-full-width {
-  width: 40%;
+  width: 100%;
+ }
+.example-card {
+  max-width: 300px;
+}
+.example-form{
+  width: 100%;
+
+}
+
+.example-button-row button {
+  display: table-cell;
+  margin-right: 8px;
+}
+
+.example-header-image {
+  background-size: cover;
 }

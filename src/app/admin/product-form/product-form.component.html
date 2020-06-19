@@ -1,42 +1,73 @@
-<div class="example-container">
-  <form class="example-form" #f="ngForm" (ngSubmit)="save(f.value)" [formGroup]="productFormControl">
-    <mat-form-field class="example-full-width"> 
-      <mat-label>Title</mat-label>
-      <input formControlName="title" matInput>
-      <mat-error *ngIf="productFormControl.get('title').hasError('required')">Title is <strong>required</strong></mat-error>
-    </mat-form-field>
-    <br>
+<mat-grid-list cols="2" >
+  <mat-grid-tile>
     
-    <mat-form-field class="example-full-width">
-        <mat-label>Price</mat-label>
-        <input matInput  formControlName="price" [errorStateMatcher]="matcher" class="example-right-align">
-        <span matPrefix>$&nbsp;</span>
+      <form class="example-form" #f="ngForm" (ngSubmit)="save(f.value)" [formGroup]="productFormControl">
+        <mat-form-field class="example-full-width"> 
+          <mat-label>Title</mat-label>
+          <input formControlName="title" matInput #title  [(ngModel)]="product.title">
+          <mat-error *ngIf="productFormControl.get('title').hasError('required')">Title is <strong>required</strong></mat-error>
+        </mat-form-field>
+        <br>
         
-        <mat-error *ngIf="productFormControl.get('price').hasError('digits') && !productFormControl.get('price').hasError('required')">
-            Price only digit
+        <mat-form-field class="example-full-width">
+            <mat-label>Price</mat-label>
+            <input matInput #price  formControlName="price" [(ngModel)]="product.price" [errorStateMatcher]="matcher" class="example-right-align">
+            <span matPrefix>$&nbsp;</span>
+            
+            <mat-error *ngIf="productFormControl.get('price').hasError('pattern') && !productFormControl.get('price').hasError('required')">
+                Price only digit
+              </mat-error>
+              <mat-error *ngIf="productFormControl.get('price').hasError('min') && !productFormControl.get('price').hasError('required')">
+                Price 0 or higher
+              </mat-error>
+              <mat-error *ngIf="productFormControl.get('price').hasError('required')">Price is <strong>required</strong></mat-error>
+            
+        </mat-form-field >
+        
+        <br>
+        <mat-form-field class="example-full-width">
+          <mat-label>Category</mat-label>
+          <mat-select formControlName="category" [(ngModel)]="product.category"  #caategory >
+            <mat-option value="option"></mat-option>
+            <mat-option  *ngFor="let category of categories$ | async" [value]="category.key" >{{category.value.name}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="productFormControl.get('category').hasError('required')">Category is <strong>required</strong></mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="example-full-width"> 
+          <mat-label>Image URL</mat-label>
+          <input formControlName="imageURL" matInput [(ngModel)]="product.imageURL" #imageURL>
+          <mat-error *ngIf="productFormControl.get('imageURL').hasError('required')">Image URL is <strong>required</strong></mat-error>
+          <mat-error *ngIf="productFormControl.get('imageURL').hasError('url') && !productFormControl.get('imageURL').hasError('required')">
+            Please provide a valid URL
           </mat-error>
-          <mat-error *ngIf="productFormControl.get('price').hasError('required')">Price is <strong>required</strong></mat-error>
-        
-    </mat-form-field >
+        </mat-form-field>
+        <br>
+        <br>
+        <div class="example-button-row">
+        <button mat-raised-button [disabled]="f.invalid">Save</button>
+        <button mat-raised-button *ngIf="id" type="button" color="warn" (click)="delete()">Delete</button> 
+        </div>
+      </form>
+      
     
-    <br>
-    <mat-form-field class="example-full-width">
-      <mat-label>Category</mat-label>
-      <mat-select formControlName="category">
-        <mat-option value="option"></mat-option>
-        <mat-option  *ngFor="let category of categories$ | async" [value]="category.key">{{category.value.name}}</mat-option>
-      </mat-select>
-      <mat-error *ngIf="productFormControl.get('category').hasError('required')">Category is <strong>required</strong></mat-error>
-    </mat-form-field>
-    <br>
-    <mat-form-field class="example-full-width"> 
-      <mat-label>Image URL</mat-label>
-      <input formControlName="imageURL" matInput>
-      <mat-error *ngIf="productFormControl.get('imageURL').hasError('required')">Image URL is <strong>required</strong></mat-error>
-    </mat-form-field>
-    <br>
-    <br>
-    <button mat-raised-button color="primary">Save</button> 
-  </form>
-  </div>
+
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar ><img mat-card-avatar [src]="product.imageURL" alt=""></div>
+        <mat-card-title>{{product.title}}</mat-card-title>
+        <mat-card-subtitle>{{product.category}}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image [src]="product.imageURL"  alt="">
+      <mat-card-content>
+        <p>{{product.price | currency:'USD':'symbol'}}
+        </p>
+      </mat-card-content>
+      </mat-card>
+    
+  </mat-grid-tile>
+</mat-grid-list>
+
   

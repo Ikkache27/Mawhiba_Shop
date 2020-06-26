@@ -1,0 +1,14 @@
+<mat-grid-list  cols="1" rowHeight="30em">
+    
+    <mat-grid-tile  >
+        
+    <mat-selection-list style ="padding: 0px;" [multiple]="false" >
+      <mat-list-option routerLink="/" mat-button [selected]="!category">All Categories</mat-list-option>  
+      <mat-list-option *ngFor="let category of categories$ | async" routerLink="/" [queryParams]="{category: category.key}">
+            {{category.value.name}}
+        </mat-list-option>
+      </mat-selection-list>
+    
+  </mat-grid-tile>
+  </mat-grid-list>
+  

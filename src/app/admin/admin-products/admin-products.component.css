@@ -1,6 +1,6 @@
 table {
-    width: 60%;
-  }
+  width: 100%;
+}
 
 
 .example-button-row button {
@@ -8,3 +8,7 @@ table {
     margin-right: 8px;
   }
 
+div {
+  width: 60%;
+
+}

@@ -9,10 +9,17 @@ import { database } from 'firebase';
 export class CategoryService {
 
   constructor(private db : AngularFireDatabase) { }
-  getCategories(){
+  getAll(){
     return this.db.list('/categories',ref => ref.orderByChild('name')).snapshotChanges()
     .pipe(map(action => action.map(data => ({key: data.payload.key, value:data.payload.val()}))))
   }
+
+
+  getCategoryUrl(product){
+    return  this.db.object('/categories/'+product).snapshotChanges().pipe(map((res:any) => {
+      return res.payload.val().imageURL;}),take(1))
+
+    }
 
  /**getImageUrlCategory(name){
     return  this.db.object('/categories/'+name).snapshotChanges().pipe(map(res => {

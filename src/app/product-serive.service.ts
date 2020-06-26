@@ -27,8 +27,7 @@ export class ProductSeriveService {
 
   get(productId){
     return  this.db.object('/products/'+productId).snapshotChanges().pipe(map(res => {
-      return res.payload.val();
-     }),take(1))
+      return res.payload.val();}),take(1))
 
     }
 

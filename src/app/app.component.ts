@@ -14,12 +14,15 @@ export class AppComponent implements OnDestroy{
   subscription : Subscription
   constructor(private auth: AuthService, private router : Router, private userService : UserService){
     this.subscription=auth.user$.subscribe(user => {
-      if (user) {
-        userService.save(user);
+      if (!user) return; 
+      userService.save(user);
 
-        let returnUrl = localStorage.getItem('returnUrl');
-        router.navigateByUrl(returnUrl)
-      }
+      let returnUrl = localStorage.getItem('returnUrl');
+      if (!returnUrl) return ;
+      localStorage.removeItem('returnUrl')
+      router.navigateByUrl(returnUrl)
+       
+      
     })
   }
   ngOnDestroy(){

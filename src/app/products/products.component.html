@@ -1,1 +1,14 @@
-<p>products works!</p>
+<div>
+<div class="fixed-top" style="float: left; width:20%;">
+  <app-product-filter [category]="category"></app-product-filter>  
+</div>
+<div style="width:80%; float: right; ">
+<mat-grid-list cols="3" rowHeight="30em">
+        
+      <mat-grid-tile *ngFor="let product of filtredProduct">
+        
+        <app-product-card [product]="product.value"  [product-key]="product.key" [shopping-cart]="cart"></app-product-card>
+      </mat-grid-tile>
+  </mat-grid-list>
+</div>
+</div>

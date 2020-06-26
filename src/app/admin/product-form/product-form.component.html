@@ -1,4 +1,4 @@
-<mat-grid-list cols="2" >
+<mat-grid-list *ngIf="product" cols="2" >
   <mat-grid-tile>
     
       <form class="example-form" #f="ngForm" (ngSubmit)="save(f.value)" [formGroup]="productFormControl">
@@ -54,19 +54,7 @@
 
   </mat-grid-tile>
   <mat-grid-tile>
-    <mat-card class="example-card">
-      <mat-card-header>
-        <div mat-card-avatar ><img mat-card-avatar [src]="product.imageURL" alt=""></div>
-        <mat-card-title>{{product.title}}</mat-card-title>
-        <mat-card-subtitle>{{product.category}}</mat-card-subtitle>
-      </mat-card-header>
-      <img mat-card-image [src]="product.imageURL"  alt="">
-      <mat-card-content>
-        <p>{{product.price | currency:'USD':'symbol'}}
-        </p>
-      </mat-card-content>
-      </mat-card>
-    
+    <app-product-card [product]="product" [show-actions]="false"></app-product-card>
   </mat-grid-tile>
 </mat-grid-list>
 

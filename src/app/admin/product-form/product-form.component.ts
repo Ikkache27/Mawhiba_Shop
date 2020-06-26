@@ -1,3 +1,4 @@
+import { Product } from './../../models/product';
 import { ProductSeriveService, Item } from './../../product-serive.service';
 import { CategoryService } from './../../category.service';
 import { Component, OnInit } from '@angular/core';
@@ -24,7 +25,7 @@ export class ProductFormComponent implements OnInit {
   id;
   categories$;
   categoryImageURL='';
-  product=<any>{};
+  product:Product;
   productFormControl = new FormGroup({
     'title': new FormControl('',[Validators.required]),
     'price': new FormControl('',[Validators.required,Validators.pattern('[0-9]+(\.[0-9]{1,2})?'), CustomValidators.min(0)]),
@@ -33,12 +34,11 @@ export class ProductFormComponent implements OnInit {
   });
 
     constructor(private route : ActivatedRoute, private categoryService : CategoryService, private productService : ProductSeriveService, private router : Router) {
-    this.categories$=categoryService.getCategories()
+    this.categories$=categoryService.getAll()
     this.id = this.route.snapshot.paramMap.get('id')
-    if (this.id) this.productService.get(this.id).subscribe(p=>{this.product=p
-    })
+    if (this.id ) {this.productService.get(this.id).subscribe((p:Product)=>{this.product=p})}
+    else {this.product= <Product>{}}
     
-   
   }
 
   ngOnInit(): void {

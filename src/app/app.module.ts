@@ -1,3 +1,4 @@
+import { ShoppingCartService } from './shopping-cart.service';
 import { ProductSeriveService } from './product-serive.service';
 import { CategoryService } from './category.service';
 import { AuthGuardService } from './auth-guard.service';
@@ -40,6 +41,11 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
+import {MatListModule} from '@angular/material/list';
+import { ProductFilterComponent } from './products/product-filter/product-filter.component';
+import { ProductCardComponent } from './product-card/product-card.component'; 
+import {MatBadgeModule} from '@angular/material/badge';
+import { ProductQuantityComponent } from './product-quantity/product-quantity.component'; 
 
 @NgModule({
   declarations: [
@@ -54,7 +60,10 @@ import {MatSortModule} from '@angular/material/sort';
     AdminProductsComponent,
     AdminOrdersComponent,
     LoginComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    ProductFilterComponent,
+    ProductCardComponent,
+    ProductQuantityComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +73,7 @@ import {MatSortModule} from '@angular/material/sort';
     AngularFireAuthModule,
     BrowserAnimationsModule,
     RouterModule.forRoot([
-      {path: '', component : HomeComponent},
+      {path: '', component : ProductsComponent},
       {path: 'products', component : ProductsComponent},
       {path: 'shopping-cart', component : ShoppingCartComponent},
       {path: 'login', component : LoginComponent},
@@ -93,10 +102,12 @@ import {MatSortModule} from '@angular/material/sort';
     MatGridListModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatListModule,
+    MatBadgeModule
     
   ],
-  providers: [ProductSeriveService, CategoryService, AuthService, AuthGuardService, UserService, AdminAuthGuardService],
+  providers: [ShoppingCartService , ProductSeriveService, CategoryService, AuthService, AuthGuardService, UserService, AdminAuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

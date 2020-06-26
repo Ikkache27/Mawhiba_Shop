@@ -1,0 +1,21 @@
+<mat-card *ngIf="product.title" class="example-card mat-elevation-z8">
+    <mat-card-header>
+      <div mat-card-avatar ><img mat-card-avatar [src]="categoryImageURL$ | async" alt=""></div>
+      <mat-card-title>{{product.title}}</mat-card-title>
+      <mat-card-subtitle>{{product.category}}</mat-card-subtitle>
+    </mat-card-header>
+    <img  class="imgs" mat-card-image [src]="product.imageURL"  alt="">
+    <mat-card-content>
+      <p>{{product.price | currency:'USD':'symbol'}}
+      </p>
+    </mat-card-content>
+    
+        <mat-card-actions *ngIf="showActions && shoppingCart">
+            <button *ngIf="shoppingCart.getQuantity(productKey)==0; else udpdateQuantity" (click)="addtoCart()" class="btn-block" mat-raised-button color="primary" >Add to Card</button>
+            <ng-template #udpdateQuantity>
+                <app-product-quantity [product]="product" [product-key]="productKey" [shopping-cart]="shoppingCart"></app-product-quantity>
+            </ng-template>
+            
+        </mat-card-actions>
+    
+    </mat-card>

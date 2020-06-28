@@ -3,8 +3,8 @@
   <button mat-button routerLink="/" ><mat-icon>store_mall_directory</mat-icon>Oshop</button>
   <div class="spacer"></div>
  
-  <button mat-button routerLink="/shopping-cart">Shopping Cart </button>
-  <span *ngIf="cart$ | async as cart" matBadge="{{cart.totalItemsCount}}"  matBadgeColor="accent"></span>
+  <button mat-button routerLink="/shopping-cart" >Shopping Cart </button>
+  <span *ngIf="cart" matBadge="{{cart.totalItemsCount}}"  matBadgeColor="accent" style="margin-right:20px"></span>
   <ng-template #anonymousUser>
     <button mat-raised-button color="accent"  routerLink="/login">Login</button>
   </ng-template>

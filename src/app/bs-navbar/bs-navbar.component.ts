@@ -1,8 +1,8 @@
 import { ShoppingCart } from './../models/shopping-cart';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ShoppingCartService } from './../shopping-cart.service';
 import { AuthService } from './../auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AppUser } from '../models/app-user';
 import { AngularFireObject } from '@angular/fire/database';
 
@@ -12,18 +12,24 @@ import { AngularFireObject } from '@angular/fire/database';
   templateUrl: './bs-navbar.component.html',
   styleUrls: ['./bs-navbar.component.css']
 })
-export class BsNavbarComponent  implements OnInit{
+export class BsNavbarComponent  implements OnInit, OnDestroy{
   appUser : AppUser
-  cart$ 
+  cart 
+  subscription : Subscription
   constructor(private auth : AuthService, private shoppingCartService : ShoppingCartService) { 
     
   }
-  async ngOnInit(){
+  ngOnInit(){
+       
     this.auth.appUser$.subscribe(appUser => this.appUser=appUser)
-    this.cart$= await this.shoppingCartService.getCart()
-    
+    this.shoppingCartService.getCart().subscribe(cart=>this.cart=cart)
    
   }
+  ngOnDestroy(){
+
+    this.subscription.unsubscribe()
+  }
+  
   login(){
 
       this.auth.login()

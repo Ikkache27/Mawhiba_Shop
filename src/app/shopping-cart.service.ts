@@ -14,8 +14,16 @@ export class ShoppingCartService {
 
   constructor(private db : AngularFireDatabase) { }
 
+  async cleartCart(){
+
+    let cartId= await this.getOrCreatCartId();
+    this.db.object('/shopping-carts/'+cartId+'/items').remove()
+  }
+  
+  
+  
   private creat(){
-    return this.db.list('shopping-carts').push({
+    return this.db.list('/shopping-carts').push({
       dateCreatd: new Date().getTime()
 
     })
@@ -23,17 +31,18 @@ export class ShoppingCartService {
 
   }
 
-  async getCart() : Promise<Observable<ShoppingCart>>{
-    let cartId = await this.getOrCreatId();
-    return this.db.object('/shopping-carts/'+cartId).valueChanges().pipe(map((x:any)=>new ShoppingCart(x.items))) 
+  getCart() {
+    let cart_Id= this.getOrCreatCartId()
+    
+    return this.db.object('/shopping-carts/'+cart_Id).valueChanges().pipe(map((x:any)=>new ShoppingCart(x.items) )) 
 
   }
-  private async getOrCreatId(): Promise<string>{
+  private getOrCreatCartId(){
 
-    let cartId=localStorage.getItem('cartId')
-    if (cartId) return cartId;
-
-    let result = await this.creat()
+    let cartId=localStorage.getItem('cartId');
+    if (cartId) return cartId;  
+    
+    let result=this.creat()
     localStorage.setItem('cartId', result.key);
     return result.key;
     
@@ -45,23 +54,34 @@ export class ShoppingCartService {
 
 
   }
-  async addToCart(product: Product, productKey){
-    let cart = await this.getOrCreatId();
+  addToCart(product: Product, productKey){
+    let cart=this.getOrCreatCartId();
     let items$=this.getItem(cart, productKey)
     items$.valueChanges().pipe(take(1))
     .subscribe((item:any) =>{if (item) items$.update({quantity : item.quantity + 1});
-                            else items$.set({product : product, quantity : 1})}  
+                            else items$.set({title : product.title,
+                              imageURL : product.imageURL,
+                              price : product.price, quantity : 1})}  
     )}
 
-    async removeFromCart(product: Product, productKey){
-        this.updateQuantity(product, productKey, -1)
+   removeFromCart(product: Product, productKey){
+        this.updateItem(product, productKey, -1)
 
     }
-    private async updateQuantity(product, productKey,change:number){
-      let cart = await this.getOrCreatId();
+    private updateItem(product:Product, productKey,change:number){
+      let cart=this.getOrCreatCartId();
+      
       let items$=this.getItem(cart, productKey)
+      
       items$.valueChanges().pipe(take(1))
-      .subscribe((item:any) =>{items$.update({product : product, quantity : (item.quantity || 0) + change})
+      .subscribe((item:any) =>{
+        let quantity = item.quantity +change
+        if (quantity===0) items$.remove();
+        else items$.update({
+        title : product.title,
+        imageURL : product.imageURL,
+        price : product.price, 
+        quantity : quantity})
                              
     })
 

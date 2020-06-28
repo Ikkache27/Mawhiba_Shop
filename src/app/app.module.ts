@@ -1,3 +1,4 @@
+import { OrderService } from './order.service';
 import { ShoppingCartService } from './shopping-cart.service';
 import { ProductSeriveService } from './product-serive.service';
 import { CategoryService } from './category.service';
@@ -45,7 +46,9 @@ import {MatListModule} from '@angular/material/list';
 import { ProductFilterComponent } from './products/product-filter/product-filter.component';
 import { ProductCardComponent } from './product-card/product-card.component'; 
 import {MatBadgeModule} from '@angular/material/badge';
-import { ProductQuantityComponent } from './product-quantity/product-quantity.component'; 
+import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
+import { ShoppingCartSummaryComponent } from './shopping-cart-summary/shopping-cart-summary.component';
+import { ShippingFormComponent } from './shipping-form/shipping-form.component'; 
 
 @NgModule({
   declarations: [
@@ -63,7 +66,9 @@ import { ProductQuantityComponent } from './product-quantity/product-quantity.co
     ProductFormComponent,
     ProductFilterComponent,
     ProductCardComponent,
-    ProductQuantityComponent
+    ProductQuantityComponent,
+    ShoppingCartSummaryComponent,
+    ShippingFormComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +84,7 @@ import { ProductQuantityComponent } from './product-quantity/product-quantity.co
       {path: 'login', component : LoginComponent},
       
       {path: 'check-out', component : CheckOutComponent, canActivate:[AuthGuardService]},
-      {path: 'order-success', component : OrderSuccessComponent, canActivate:[AuthGuardService]},
+      {path: 'order-success/:id', component : OrderSuccessComponent, canActivate:[AuthGuardService]},
       {path: 'my/orders', component : MyOrdersComponent, canActivate:[AuthGuardService]},
       
       {path: 'admin/product/new', component : ProductFormComponent, canActivate:[AuthGuardService, AdminAuthGuardService]},      
@@ -107,7 +112,7 @@ import { ProductQuantityComponent } from './product-quantity/product-quantity.co
     MatBadgeModule
     
   ],
-  providers: [ShoppingCartService , ProductSeriveService, CategoryService, AuthService, AuthGuardService, UserService, AdminAuthGuardService],
+  providers: [OrderService, ShoppingCartService , ProductSeriveService, CategoryService, AuthService, AuthGuardService, UserService, AdminAuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

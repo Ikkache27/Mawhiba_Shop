@@ -1,17 +1,22 @@
 import { ShoppingCartItem } from './shopping-cart-item';
 export class ShoppingCart {
     items : ShoppingCartItem[]=[];
-    constructor(public itemsMap : {[productId:string]: ShoppingCartItem} ){
+    constructor(private itemsMap?: {[productId:string]: ShoppingCartItem} ){
       this.itemsMap = itemsMap || {}  
+
       for (let productId in itemsMap) {
           let item = itemsMap[productId];
-          this.items.push(new ShoppingCartItem(item.product, item.quantity, productId))
+          this.items.push(new ShoppingCartItem({
+            ...item,
+            $key: productId
+          }))
     }
   }
-  getQuantity(productKey){
+  getQuantity(product,productkey){
+    if (productkey) {let item= this.itemsMap[productkey]; return item ? item.quantity : 0}
+    else {let item= this.itemsMap[product.$key]; return item ? item.quantity : 0};
     
-    let item= this.itemsMap[productKey]
-    return item ? item.quantity : 0
+    
   }
 
   get totalPrice(){

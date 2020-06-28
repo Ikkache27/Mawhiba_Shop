@@ -1,1 +1,19 @@
-<p>check-out works!</p>
+<mat-grid-list cols="2" >
+    
+    <div>
+    <mat-grid-tile>
+        <app-shipping-form [cart]="cart" style="width: 100%;"></app-shipping-form>
+        
+        
+      
+  
+    </mat-grid-tile>
+</div>
+    <mat-grid-tile>
+        <app-shopping-cart-summary [cart]="cart"></app-shopping-cart-summary>
+        
+    </mat-grid-tile>
+
+  </mat-grid-list>
+  
+    

@@ -2,8 +2,8 @@
 <div class="fixed-top" style="float: left; width:20%;">
   <app-product-filter [category]="category"></app-product-filter>  
 </div>
-<div style="width:80%; float: right; ">
-<mat-grid-list cols="3" rowHeight="30em">
+<div style="width:80%; float: right;">
+<mat-grid-list cols="3" rowHeight="30em" *ngIf="cart " >
         
       <mat-grid-tile *ngFor="let product of filtredProduct">
         

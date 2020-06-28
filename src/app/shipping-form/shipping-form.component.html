@@ -1,0 +1,26 @@
+
+        <form class="example-form" #f="ngForm" (ngSubmit)="placeOrder(f.value)" [formGroup]="shippingFormControl">
+            <h1>Shipping Form :</h1>
+            <mat-form-field class="example-full-width"> 
+            <mat-label>Name</mat-label>
+            <input formControlName="name" matInput #name>
+            <mat-error *ngIf="shippingFormControl.get('name').hasError('required')">Name is <strong>required</strong></mat-error>
+          </mat-form-field>
+          <br>
+          <mat-form-field class="example-full-width"> 
+            <mat-label>Adresse</mat-label>
+            <input formControlName="adresse" matInput #adresse>
+            <mat-error *ngIf="shippingFormControl.get('adresse').hasError('required')">Name is <strong>required</strong></mat-error>
+          </mat-form-field>
+          <br>
+          <mat-form-field class="example-full-width"> 
+            <mat-label>City</mat-label>
+            <input formControlName="city" matInput #adresse>
+            <mat-error *ngIf="shippingFormControl.get('city').hasError('required')">Name is <strong>required</strong></mat-error>
+          </mat-form-field>
+          <br>
+          <br>
+          <div class="example-button-row">
+          <button mat-raised-button [disabled]="f.invalid">Place Order</button> 
+          </div>
+        </form>

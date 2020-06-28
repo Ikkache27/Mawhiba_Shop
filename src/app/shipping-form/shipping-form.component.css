@@ -1,0 +1,17 @@
+.example-full-width {
+    width: 100%;
+   }
+ 
+  .example-form{
+    width: 100%;
+  
+  }
+  
+  .example-button-row button {
+    display: table-cell;
+    margin-right: 8px;
+  }
+  
+  .example-header-image {
+    background-size: cover;
+  }

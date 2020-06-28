@@ -8,7 +8,7 @@ import { ShoppingCartService } from '../shopping-cart.service';
   styleUrls: ['./product-quantity.component.css']
 })
 export class ProductQuantityComponent  {
-  @Input('product') product:Product;
+  @Input('product') product;
   @Input('product-key') productKey;
   
   
@@ -22,11 +22,13 @@ export class ProductQuantityComponent  {
     
   }
   addtoCart(){
-    this.shoppingCartService.addToCart(this.product, this.productKey)
+    if (this.productKey) this.shoppingCartService.addToCart(this.product, this.productKey);
+    else  this.shoppingCartService.addToCart(this.product, this.product.$key)
   }
-  removeFromCart(){
-    this.shoppingCartService.removeFromCart(this.product, this.productKey)
 
+  removeFromCart(){
+    if (this.productKey) this.shoppingCartService.removeFromCart(this.product, this.productKey)
+    else this.shoppingCartService.removeFromCart(this.product, this.product.$key)
   }
   
 

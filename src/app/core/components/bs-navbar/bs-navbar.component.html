@@ -1,16 +1,17 @@
 <div class="fixed-top">
 <mat-toolbar  color="primary" class="mat-elevation-z8">
-  <button mat-button routerLink="/" ><mat-icon>store_mall_directory</mat-icon>Oshop</button>
+  <button mat-button routerLink="/" ><mat-icon>store_mall_directory</mat-icon>Mawhiba_shop</button>
   <div class="spacer"></div>
  
-  <button mat-button routerLink="/shopping-cart" >Shopping Cart </button>
-  <span *ngIf="cart" matBadge="{{cart.totalItemsCount}}"  matBadgeColor="accent" style="margin-right:20px"></span>
+  <button mat-button routerLink="/shopping-cart" ><mat-icon *ngIf="cart" matBadge="{{cart.totalItemsCount}}"  matBadgeColor="accent">shopping_cart</mat-icon></button>
+   
   <ng-template #anonymousUser>
     <button mat-raised-button color="accent"  routerLink="/login">Login</button>
   </ng-template>
   <button mat-button [matMenuTriggerFor]="menu" *ngIf="appUser; else anonymousUser">{{appUser.name}}<mat-icon >arrow_drop_down</mat-icon>
   </button>
-  <mat-menu  #menu="matMenu">
+  
+  <mat-menu  #menu="matMenu" >
     <button mat-menu-item  routerLink="/my/orders">My orders</button>
     <ng-container *ngIf="appUser?.isAdmin">
       <button mat-menu-item routerLink="/admin/orders">Manage orders</button>
@@ -18,7 +19,7 @@
     </ng-container>
     <button mat-menu-item (click)="logout()">Log Out</button>
   </mat-menu>
-  
+ 
 </mat-toolbar>
 </div>
 

@@ -11,7 +11,7 @@
     </mat-card-content>
     
         <mat-card-actions *ngIf="showActions && shoppingCart">
-            <button *ngIf="shoppingCart.getQuantity(product,productKey)==0; else udpdateQuantity" (click)="addtoCart()" class="btn-block" mat-raised-button color="primary" >Add to Card</button>
+            <button *ngIf="shoppingCart.getQuantity(product,productKey)==0; else udpdateQuantity" (click)="addtoCart()" class="btn-block" mat-raised-button color="primary" >Add to Cart</button>
             <ng-template #udpdateQuantity>
                 <app-product-quantity [product]="product" [product-key]="productKey" [shopping-cart]="shoppingCart"></app-product-quantity>
             </ng-template>

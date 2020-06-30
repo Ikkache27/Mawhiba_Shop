@@ -10,13 +10,13 @@
           <mat-form-field class="example-full-width"> 
             <mat-label>Adresse</mat-label>
             <input formControlName="adresse" matInput #adresse>
-            <mat-error *ngIf="shippingFormControl.get('adresse').hasError('required')">Name is <strong>required</strong></mat-error>
+            <mat-error *ngIf="shippingFormControl.get('adresse').hasError('required')">Adresse is <strong>required</strong></mat-error>
           </mat-form-field>
           <br>
           <mat-form-field class="example-full-width"> 
             <mat-label>City</mat-label>
             <input formControlName="city" matInput #adresse>
-            <mat-error *ngIf="shippingFormControl.get('city').hasError('required')">Name is <strong>required</strong></mat-error>
+            <mat-error *ngIf="shippingFormControl.get('city').hasError('required')">City is <strong>required</strong></mat-error>
           </mat-form-field>
           <br>
           <br>

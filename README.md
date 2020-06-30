@@ -1,4 +1,4 @@
-# Mawhiba_Shop
+# Mawhiba_Shop (Angular 9, Angular Material and Firebase)
 
 https://oshop-5c1a1.web.app/
 

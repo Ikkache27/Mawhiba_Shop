@@ -1,7 +1,6 @@
 # Mawhiba_Shop
 
 https://oshop-5c1a1.web.app/
-# Oshop
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.5.
 
